@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyl.mapper.GoodsLoginMapper">
+
+    <resultMap id="GoodsLoginMap" type="com.wyl.entity.GoodsLogin">
+
+        <result property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="loginId" column="login_id"/>
+        <result property="cartAmount" column="cart_amount"/>
+
+        <association property="goods">
+            <result column="goods_id" property="id"/>
+            <result column="goods_name" property="goodsName"/>
+            <result column="goods_price" property="goodsPrice"/>
+            <result column="goods_url" property="goodsUrl"/>
+            <result column="goods_amount" property="goodsAmount"/>
+            <result column="goods_information" property="goodsInformation"/>
+        </association>
+    </resultMap>
+
+    <select id="findLoginCart" resultMap="GoodsLoginMap">
+        select * from goods_login
+            left join goods on goods_login.goods_id=goods.id
+        where login_id=#{id}
+    </select>
+
+
+</mapper>

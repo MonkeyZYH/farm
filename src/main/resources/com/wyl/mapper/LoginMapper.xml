@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyl.mapper.LoginMapper">
+
+    <resultMap id="LoginMap" type="com.wyl.entity.Login">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="nickname" column="nickname"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="avatar" column="avatar"/>
+        <result property="createTime" column="create_time"/>
+        <result property="permission" column="permission"/>
+        <result property="functionId" column="function_id"/>
+
+        <association property="function">
+            <result column="function_id" property="id"/>
+            <result column="cart" property="cart"/>
+            <result column="order" property="order"/>
+            <result column="collect" property="collect"/>
+            <result column="publish" property="publish"/>
+            <result column="revise" property="revise"/>
+        </association>
+    </resultMap>
+
+    <select id="findLoginFunction" resultMap="LoginMap">
+        select * from login
+                   join `function` on login.function_id = function.id
+        where login.id=#{id}
+    </select>
+
+
+</mapper>
